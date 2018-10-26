@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+@using 百度UEditor的使用.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+    <script src="~/ueditor/1.4.3/ueditor.config.js"></script>
+    <script src="~/ueditor/1.4.3/ueditor.all.min.js"></script>
+    <script src="~/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <div> 
+        <ul id="uls">
+            @foreach (var a in ViewBag.articles)
+            {
+                   <a href="#"><li id="@a.Id">@a.Title</li></a>
+            }
+        </ul>
+      
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+        标题：<input type="text" name="name" value=""  id="title"/>
+        <script id="editor" name="content" type="text/plain" style="width:1024px;height:500px;">
+        </script>
+    </div>
+    <br />
+    <br />
+    <div id="content2">
+
+    </div>
+</body>
+</html>
+<script>
+    var ue = UE.getEditor('editor', {
+        autoHeight: true,
+    });
+
+    $(function () {
+        $("#uls li").click(function () {
+            var id = $(this).attr("id");
+
+            $.ajax({
+                type: "get",
+                url: "/Home/GetContentById",
+                dataType: "json",
+                data: {
+                    id:id
+                },
+                success: function (resp) {
+                    var title = resp.data[0].Title;
+                    var content = resp.data[0].Content;
+
+                    $("#content2").append(content)
+
+                    $("#title").val(title);
+                    //$("#editor").val(content);
+                    ue.ready(function () {
+                        //设置编辑器的内容
+                        ue.setContent(content);
+                    });
+                },
+                error: function () {
+                    alert("网络请求失败")
+                }
+            })
+
+        })
+    })
+
+   
+</script>

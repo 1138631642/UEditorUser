@@ -1,0 +1,322 @@
+﻿
+【 UEditor使用步骤：】
+1. 从官网上下载所需文件
+https://ueditor.baidu.com/website/index.html
+
+2. 引用js文件
+<script type="text/javascript" charset="utf-8" src="~/百度下的Demo/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/百度下的Demo/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="~/百度下的Demo/lang/zh-cn/zh-cn.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+3. 在body中初始化UEditor
+<div><script id="editor" type="text/plain" style="width:1024px;height:500px;"></script></div>
+
+4. 在<script></script>中初始化UEditor
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor', {
+        autoHeight: true
+    });
+
+</script>
+
+
+------
+
+【UEditor中常用的一些方法：】
+1. 设置内容
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor', {
+        autoHeight: true
+    });
+
+   
+    ue.ready(function () {
+        //设置编辑器的内容
+        ue.setContent('hello');
+    });    
+</script>
+
+
+2. 获取内容
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor', {
+        autoHeight: true
+    });
+
+   
+    ue.ready(function () {
+         var html = ue.getContent();
+        //获取纯文本内容，返回: hello
+        var txt = ue.getContentTxt();
+    });
+</script>
+
+3. 修改配置项的方法： 
+方法一：修改 ueditor.config.js 里面的 toolbars 
+方法二：实例化编辑器的时候传入 toolbars 参数
+
+toolbars: [
+    [
+        'anchor', //锚点
+        'undo', //撤销
+        'redo', //重做
+        'bold', //加粗
+        'indent', //首行缩进
+        'snapscreen', //截图
+        'italic', //斜体
+        'underline', //下划线
+        'strikethrough', //删除线
+        'subscript', //下标
+        'fontborder', //字符边框
+        'superscript', //上标
+        'formatmatch', //格式刷
+        'source', //源代码
+        'blockquote', //引用
+        'pasteplain', //纯文本粘贴模式
+        'selectall', //全选
+        'print', //打印
+        'preview', //预览
+        'horizontal', //分隔线
+        'removeformat', //清除格式
+        'time', //时间
+        'date', //日期
+        'unlink', //取消链接
+        'insertrow', //前插入行
+        'insertcol', //前插入列
+        'mergeright', //右合并单元格
+        'mergedown', //下合并单元格
+        'deleterow', //删除行
+        'deletecol', //删除列
+        'splittorows', //拆分成行
+        'splittocols', //拆分成列
+        'splittocells', //完全拆分单元格
+        'deletecaption', //删除表格标题
+        'inserttitle', //插入标题
+        'mergecells', //合并多个单元格
+        'deletetable', //删除表格
+        'cleardoc', //清空文档
+        'insertparagraphbeforetable', //"表格前插入行"
+        'insertcode', //代码语言
+        'fontfamily', //字体
+        'fontsize', //字号
+        'paragraph', //段落格式
+        'simpleupload', //单图上传
+        'insertimage', //多图上传
+        'edittable', //表格属性
+        'edittd', //单元格属性
+        'link', //超链接
+        'emotion', //表情
+        'spechars', //特殊字符
+        'searchreplace', //查询替换
+        'map', //Baidu地图
+        'gmap', //Google地图
+        'insertvideo', //视频
+        'help', //帮助
+        'justifyleft', //居左对齐
+        'justifyright', //居右对齐
+        'justifycenter', //居中对齐
+        'justifyjustify', //两端对齐
+        'forecolor', //字体颜色
+        'backcolor', //背景色
+        'insertorderedlist', //有序列表
+        'insertunorderedlist', //无序列表
+        'fullscreen', //全屏
+        'directionalityltr', //从左向右输入
+        'directionalityrtl', //从右向左输入
+        'rowspacingtop', //段前距
+        'rowspacingbottom', //段后距
+        'pagebreak', //分页
+        'insertframe', //插入Iframe
+        'imagenone', //默认
+        'imageleft', //左浮动
+        'imageright', //右浮动
+        'attachment', //附件
+        'imagecenter', //居中
+        'wordimage', //图片转存
+        'lineheight', //行间距
+        'edittip ', //编辑提示
+        'customstyle', //自定义标题
+        'autotypeset', //自动排版
+        'webapp', //百度应用
+        'touppercase', //字母大写
+        'tolowercase', //字母小写
+        'background', //背景
+        'template', //模板
+        'scrawl', //涂鸦
+        'music', //音乐
+        'inserttable', //插入表格
+        'drafts', // 从草稿箱加载
+        'charts', // 图表
+    ]
+]
+
+
+例子：在初始化的时候设置
+var ue = UE.getEditor('editor', {
+        autoHeight: true,
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo'],
+            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
+    });
+
+4. 读取配置项可以通过getOpt方法读取
+var lang = ue.getOpt('lang'); //默认返回：zh-cn
+
+
+
+【 配置UEditor上传图片到本地：】
+
+1. 修改ueditor.config.js中的serverUrl: URL + "net/controller.ashx"
+
+2. 修改 /net文件中config.json 中图地址，或者在项目中创建对应的文件夹也可以。
+
+"imageUrlPrefix": "/ueditor/1.4.3/net/", /* 图片访问路径前缀 */
+ "imagePathFormat": "upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+
+
+
+------
+【 配置图片上传到七牛云中：】
+
+1. 将config.json中的下面这个地址改为七牛云的地址
+"imageUrlPrefix": "http://oyocpoahj.bkt.clouddn.com/",
+
+2. 修改 net/App_Data/UploadHandler.cs中的Process方法
+
+public override void Process()
+    {
+        byte[] uploadFileBytes = null;
+        string uploadFileName = null;
+
+        if (UploadConfig.Base64)
+        {
+            uploadFileName = UploadConfig.Base64Filename;
+            uploadFileBytes = Convert.FromBase64String(Request[UploadConfig.UploadFieldName]);
+        }
+        else
+        {
+            var file = Request.Files[UploadConfig.UploadFieldName];
+            uploadFileName = file.FileName;
+
+            if (!CheckFileType(uploadFileName))
+            {
+                Result.State = UploadState.TypeNotAllow;
+                WriteResult();
+                return;
+            }
+            if (!CheckFileSize(file.ContentLength))
+            {
+                Result.State = UploadState.SizeLimitExceed;
+                WriteResult();
+                return;
+            }
+
+            uploadFileBytes = new byte[file.ContentLength];
+            try
+            {
+                file.InputStream.Read(uploadFileBytes, 0, file.ContentLength);
+            }
+            catch (Exception)
+            {
+                Result.State = UploadState.NetworkError;
+                WriteResult();
+            }
+        }
+
+        Result.OriginFileName = uploadFileName;
+        /*
+       //var savePath = PathFormatter.Format(uploadFileName, UploadConfig.PathFormat);
+       //var localPath = Server.MapPath(savePath);
+       try
+       {
+
+           if (!Directory.Exists(Path.GetDirectoryName(localPath)))
+           {
+               Directory.CreateDirectory(Path.GetDirectoryName(localPath));
+           }
+           File.WriteAllBytes(localPath, uploadFileBytes);
+           Result.Url = savePath;
+           Result.State = UploadState.Success;
+
+
+       }
+       catch (Exception e)
+       {
+           Result.State = UploadState.FileAccessError;
+           Result.ErrorMessage = e.Message;
+       }
+       finally
+       {
+           WriteResult();
+       }*/
+
+        try
+        {
+            //Mac mac = new Mac(AccessKey,SecretKey);
+            Mac mac = new Mac("eQN2NwQSfcJ7KaruC61V0fd2UKGQ2YbVXzcar177", "HIZtHs1WBiFvyWY3WuoUADpQmnkVrQczg3cdLzoI");
+            string bucket = "zsztest";//云存储文件名
+            Qiniu.Common.Config.AutoZone("eQN2NwQSfcJ7KaruC61V0fd2UKGQ2YbVXzcar177",
+                bucket, true);
+            // 上传策略，参见 
+            // https://developer.qiniu.com/kodo/manual/put-policy
+            PutPolicy putPolicy = new PutPolicy();
+            // 如果需要设置为"覆盖"上传(如果云端已有同名文件则覆盖)，请使用 SCOPE = "BUCKET:KEY"
+            // putPolicy.Scope = bucket + ":" + saveKey;
+            putPolicy.Scope = bucket;
+            // 上传策略有效期(对应于生成的凭证的有效期)          
+            putPolicy.SetExpires(3600);
+            // 上传到云端多少天后自动删除该文件，如果不设置（即保持默认默认）则不删除
+            putPolicy.DeleteAfterDays = 1;
+            // 生成上传凭证，参见
+            // https://developer.qiniu.com/kodo/manual/upload-token            
+            string jstr = putPolicy.ToJsonString();
+            string token = Auth.CreateUploadToken(mac, jstr);
+            UploadManager um = new UploadManager();
+            //使用年/月/日/md5做文件名
+            string saveKey = DateTime.Now.ToString("yyyy/MM/dd") + "/" + CommonHelper.CalcMD5(uploadFileBytes) + Path.GetExtension(uploadFileName);
+            //将图片提交                            字节流       存储地址
+            HttpResult result = um.UploadData(uploadFileBytes, saveKey, token);
+            Result.Url = saveKey;
+            Result.State = UploadState.Success;
+
+        }
+        catch (Exception e)
+        {
+            Result.State = UploadState.FileAccessError;
+            Result.ErrorMessage = e.Message;
+        }
+        finally
+        {
+            WriteResult();
+        }
+
+       
+    }
+
+3. 删除 /net/bin和里面的newtonsoft.dll
+
+
+
+
+http://oyocpoahj.bkt.clouddn.com/
+
+
+
+报下面的这个错就会因为 net/bin/newtonsoft.json没有删除，导致项目的newtonsoft.json引用版本问题
+
+[2018-10-10 13:39:14.9519] QueryZone Error: 
+ 未能加载文件或程序集“Newtonsoft.Json, 
+ Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。
+ 找到的程序集清单定义与程序集引用不匹配。 
+(异常来自 HRESULT:0x80131040) 
